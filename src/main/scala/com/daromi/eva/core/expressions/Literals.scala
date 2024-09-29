@@ -1,6 +1,6 @@
 package com.daromi.eva.core.expressions
 
-case class IntegerLiteral(i: Int) extends Expression:
+case class IntegerLiteral(i: Int) extends IntegerExpression:
   override def value: Int = this.i
 
   override def toString: String = s"${this.i}"

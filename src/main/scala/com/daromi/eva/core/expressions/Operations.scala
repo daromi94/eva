@@ -1,12 +1,6 @@
 package com.daromi.eva.core.expressions
 
-case class IntegerAddition(lhs: Expression, rhs: Expression) extends Expression:
-  override def value: Int =
-    val (left, right) = (this.lhs.value, this.rhs.value)
-
-    (left, right) match
-      case (l: Int, r: Int) => l + r
-
-      case (l, r) => throw new IllegalArgumentException(s"expected integer operands, but got: ($l, $r)")
+case class IntegerAddition(lhs: IntegerExpression, rhs: IntegerExpression) extends IntegerExpression:
+  override def value: Int = this.lhs.value + this.rhs.value
 
   override def toString: String = s"(+ ${this.lhs} ${this.rhs})"
