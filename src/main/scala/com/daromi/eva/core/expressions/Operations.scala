@@ -1,6 +1,6 @@
 package com.daromi.eva.core.expressions
 
-case class IntegerAddition(
+final case class IntegerAddition(
     lhs: IntegerExpression,
     rhs: IntegerExpression
 ) extends IntegerExpression:
