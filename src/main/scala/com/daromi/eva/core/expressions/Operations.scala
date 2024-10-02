@@ -1,6 +1,6 @@
 package com.daromi.eva.core.expressions
 
-final case class IntegerAddition(
+final case class IntegerAdd(
     lhs: IntegerExpression,
     rhs: IntegerExpression
 ) extends IntegerExpression:
@@ -9,7 +9,7 @@ final case class IntegerAddition(
 
   override def toString: String = s"(+ ${this.lhs} ${this.rhs})"
 
-final case class IntegerSubtraction(
+final case class IntegerSubtract(
     lhs: IntegerExpression,
     rhs: IntegerExpression
 ) extends IntegerExpression:
@@ -18,7 +18,7 @@ final case class IntegerSubtraction(
 
   override def toString: String = s"(- ${this.lhs} ${this.rhs})"
 
-final case class IntegerMultiplication(
+final case class IntegerMultiply(
     lhs: IntegerExpression,
     rhs: IntegerExpression
 ) extends IntegerExpression:

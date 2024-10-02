@@ -1,7 +1,10 @@
 package com.daromi.eva.core.expressions
 
-trait Expression:
-  def value: Any
+trait Expression[T]:
+  def value: T
 
-trait IntegerExpression extends Expression:
-  def value: Int
+trait BooleanExpression extends Expression[Boolean]
+
+trait IntegerExpression extends Expression[Int]
+
+trait StringExpression extends Expression[String]
