@@ -1,5 +1,7 @@
 package com.daromi.eva.core.expressions
 
+import com.daromi.eva.core.Environment
+
 final case class BooleanLiteral(b: Boolean) extends Expression[Boolean]:
   override def evaluate(environment: Environment): Boolean = this.b
 

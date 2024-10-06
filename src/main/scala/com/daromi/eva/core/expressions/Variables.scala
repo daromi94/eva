@@ -1,8 +1,10 @@
 package com.daromi.eva.core.expressions
 
+import com.daromi.eva.core.Environment
+
 type Identifier = String
 
-final case class VariableDeclare[T](
+final case class VariableAssign[T](
     identifier: Identifier,
     rhs: Expression[T]
 ) extends Expression[T]:
@@ -14,7 +16,7 @@ final case class VariableDeclare[T](
 
     right
 
-  override def toString: String = s"(var ${this.identifier} ${this.rhs})"
+  override def toString: String = s"(set ${this.identifier} ${this.rhs})"
 
 final case class VariableLookup[T](identifier: Identifier)
     extends Expression[T]:

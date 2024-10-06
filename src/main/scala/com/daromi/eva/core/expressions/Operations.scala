@@ -1,5 +1,7 @@
 package com.daromi.eva.core.expressions
 
+import com.daromi.eva.core.Environment
+
 final case class IntegerAdd(
     lhs: Expression[Int],
     rhs: Expression[Int]

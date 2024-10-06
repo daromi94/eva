@@ -1,4 +1,6 @@
-package com.daromi.eva.core.expressions
+package com.daromi.eva.core
+
+import com.daromi.eva.core.expressions.Identifier
 
 import scala.collection.mutable
 
@@ -7,7 +9,7 @@ final class Environment private (
     private val parent: Option[Environment] = None
 ):
   def assign(identifier: Identifier, value: Any): Unit =
-    this.record.put(identifier, value)
+    this.record.update(identifier, value)
 
   def lookup(identifier: Identifier): Option[Any] =
     this.record.get(identifier) orElse this.parent.flatMap(_.lookup(identifier))
