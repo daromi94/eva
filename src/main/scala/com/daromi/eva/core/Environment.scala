@@ -14,5 +14,8 @@ final class Environment private (
   def get(identifier: Identifier): Option[Any] =
     this.record.get(identifier) orElse this.parent.flatMap(_.get(identifier))
 
+  def exists(identifier: Identifier): Boolean =
+    this.record.contains(identifier)
+
 object Environment:
   def empty: Environment = Environment()
