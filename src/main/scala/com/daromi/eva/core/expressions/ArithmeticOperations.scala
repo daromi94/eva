@@ -26,3 +26,12 @@ final case class IntegerMultiply(
   override def value: Int = this.lhs.value * this.rhs.value
 
   override def toString: String = s"(* ${this.lhs} ${this.rhs})"
+
+final case class IntegerDivide(
+    lhs: IntegerExpression,
+    rhs: IntegerExpression
+) extends IntegerExpression:
+
+  override def value: Int = this.lhs.value / this.rhs.value
+
+  override def toString: String = s"(/ ${this.lhs} ${this.rhs})"
