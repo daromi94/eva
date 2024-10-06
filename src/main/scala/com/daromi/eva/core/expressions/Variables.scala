@@ -6,17 +6,17 @@ type Identifier = String
 
 final case class VariableAssign[T](
     identifier: Identifier,
-    rhs: Expression[T]
+    expression: Expression[T]
 ) extends Expression[T]:
 
   override def evaluate(environment: Environment): T =
-    val right = this.rhs.evaluate(environment)
+    val value = this.expression.evaluate(environment)
 
-    environment.assign(this.identifier, right)
+    environment.assign(this.identifier, value)
 
-    right
+    value
 
-  override def toString: String = s"(set ${this.identifier} ${this.rhs})"
+  override def toString: String = s"(set ${this.identifier} ${this.expression})"
 
 final case class VariableLookup[T](identifier: Identifier)
     extends Expression[T]:
