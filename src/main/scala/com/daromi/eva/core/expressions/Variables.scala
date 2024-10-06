@@ -12,17 +12,17 @@ final case class VariableAssign[T](
   override def evaluate(environment: Environment): T =
     val value = this.expression.evaluate(environment)
 
-    environment.assign(this.identifier, value)
+    environment.set(this.identifier, value)
 
     value
 
   override def toString: String = s"(set ${this.identifier} ${this.expression})"
 
-final case class VariableLookup[T](identifier: Identifier)
+final case class VariableLookUp[T](identifier: Identifier)
     extends Expression[T]:
 
   override def evaluate(environment: Environment): T =
-    environment.lookup(this.identifier) match
+    environment.get(this.identifier) match
       case Some(value) => value.asInstanceOf[T]
 
       case None =>
