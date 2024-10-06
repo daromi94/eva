@@ -1,28 +1,29 @@
 package com.daromi.eva.core.expressions
 
-final case class BooleanVariableDeclaration(
-    identifier: String,
-    rhs: BooleanExpression
-) extends BooleanExpression:
+type Identifier = String
 
-  override def value: Boolean = this.rhs
+final case class VariableDeclare[T](
+    identifier: Identifier,
+    rhs: Expression[T]
+) extends Expression[T]:
 
-  override def toString: String = s"(var ${this.identifier} ${this.rhs}"
+  override def evaluate(environment: Environment): T =
+    val right = this.rhs.evaluate(environment)
 
-final case class IntegerVariableDeclaration(
-    identifier: String,
-    rhs: IntegerExpression
-) extends IntegerExpression:
+    environment.assign(this.identifier, right)
 
-  override def value: Boolean = this.rhs
+    right
 
-  override def toString: String = s"(var ${this.identifier} ${this.rhs}"
+  override def toString: String = s"(var ${this.identifier} ${this.rhs})"
 
-final case class StringVariableDeclaration(
-    identifier: String,
-    rhs: StringExpression
-) extends StringExpression:
+final case class VariableLookup[T](identifier: Identifier)
+    extends Expression[T]:
 
-  override def value: Boolean = this.rhs
+  override def evaluate(environment: Environment): T =
+    environment.lookup(this.identifier) match
+      case Some(value) => value.asInstanceOf[T]
 
-  override def toString: String = s"(var ${this.identifier} ${this.rhs}"
+      case None =>
+        throw new RuntimeException(s"'${this.identifier}' not defined in scope")
+
+  override def toString: String = this.identifier
