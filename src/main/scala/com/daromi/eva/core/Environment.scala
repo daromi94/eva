@@ -19,3 +19,5 @@ final class Environment private (
 
 object Environment:
   def empty: Environment = Environment()
+
+  def withParent(parent: Environment): Environment = Environment(parent = Some(parent))
