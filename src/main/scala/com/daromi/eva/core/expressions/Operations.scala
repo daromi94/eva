@@ -2,11 +2,7 @@ package com.daromi.eva.core.expressions
 
 import com.daromi.eva.core.Environment
 
-final case class IntegerAddition(
-    lhs: Expression[Int],
-    rhs: Expression[Int]
-) extends Expression[Int]:
-
+final case class IntegerAddition(lhs: Expression[Int], rhs: Expression[Int]) extends Expression[Int]:
   override def evaluate(environment: Environment): Int =
     val left = this.lhs.evaluate(environment)
     val right = this.rhs.evaluate(environment)
@@ -14,11 +10,7 @@ final case class IntegerAddition(
 
   override def toString: String = s"(+ ${this.lhs} ${this.rhs})"
 
-final case class IntegerSubtraction(
-    lhs: Expression[Int],
-    rhs: Expression[Int]
-) extends Expression[Int]:
-
+final case class IntegerSubtraction(lhs: Expression[Int], rhs: Expression[Int]) extends Expression[Int]:
   override def evaluate(environment: Environment): Int =
     val left = this.lhs.evaluate(environment)
     val right = this.rhs.evaluate(environment)
@@ -26,11 +18,7 @@ final case class IntegerSubtraction(
 
   override def toString: String = s"(- ${this.lhs} ${this.rhs})"
 
-final case class IntegerMultiplication(
-    lhs: Expression[Int],
-    rhs: Expression[Int]
-) extends Expression[Int]:
-
+final case class IntegerMultiplication(lhs: Expression[Int], rhs: Expression[Int]) extends Expression[Int]:
   override def evaluate(environment: Environment): Int =
     val left = this.lhs.evaluate(environment)
     val right = this.rhs.evaluate(environment)
@@ -38,11 +26,7 @@ final case class IntegerMultiplication(
 
   override def toString: String = s"(* ${this.lhs} ${this.rhs})"
 
-final case class IntegerDivision(
-    lhs: Expression[Int],
-    rhs: Expression[Int]
-) extends Expression[Int]:
-
+final case class IntegerDivision(lhs: Expression[Int], rhs: Expression[Int]) extends Expression[Int]:
   override def evaluate(environment: Environment): Int =
     val left = this.lhs.evaluate(environment)
     val right = this.rhs.evaluate(environment)
