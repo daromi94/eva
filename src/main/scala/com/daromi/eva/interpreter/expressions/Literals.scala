@@ -3,25 +3,25 @@ package com.daromi.eva.interpreter.expressions
 import com.daromi.eva.interpreter.Environment
 
 final case class BooleanLiteral(
-    b: Boolean
+    value: Boolean
 ) extends Expression[Boolean]:
 
-  override def evaluate(environment: Environment): Boolean = this.b
+  override def evaluate(environment: Environment): Boolean = this.value
 
-  override def toString: String = this.b.toString
+  override def toString: String = this.value.toString
 
 final case class IntegerLiteral(
-    n: Int
+    value: Int
 ) extends Expression[Int]:
 
-  override def evaluate(environment: Environment): Int = this.n
+  override def evaluate(environment: Environment): Int = this.value
 
-  override def toString: String = this.n.toString
+  override def toString: String = this.value.toString
 
 final case class StringLiteral(
-    str: String
+    value: String
 ) extends Expression[String]:
 
-  override def evaluate(environment: Environment): String = this.str
+  override def evaluate(environment: Environment): String = this.value
 
-  override def toString: String = s"\"${this.str}\""
+  override def toString: String = s"\"${this.value}\""
