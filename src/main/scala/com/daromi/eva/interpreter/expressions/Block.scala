@@ -7,7 +7,8 @@ final case class Block[T](
 ) extends Expression[T]:
 
   override def evaluate(environment: Environment): T =
-    if this.expressions.isEmpty then throw new RuntimeException("empty block not allowed")
+    if this.expressions.isEmpty then
+      throw new RuntimeException("empty block not allowed")
     else
       val scope  = Environment.childOf(environment)
       val values = this.expressions.map(_.evaluate(scope))
