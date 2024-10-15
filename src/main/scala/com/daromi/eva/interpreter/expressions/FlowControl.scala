@@ -17,3 +17,13 @@ final case class If[T](
       this.alternative.evaluate(environment)
 
   override def toString: String = s"(if ${this.predicate} ${this.consequent} ${this.alternative})"
+
+final case class While(
+    condition: Expression[Boolean],
+    body: Block[Unit]
+) extends Expression[Unit]:
+
+  override def evaluate(environment: Environment): Unit =
+    while this.condition.evaluate(environment) do this.body.evaluate(environment)
+
+  override def toString: String = s"(while ${this.condition} ${this.body})"
