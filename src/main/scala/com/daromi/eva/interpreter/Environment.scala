@@ -8,18 +8,20 @@ final class Environment private (
     private val bindings: mutable.Map[Identifier, Any] = mutable.Map.empty,
     private val parent: Option[Environment] = None
 ):
-  def exists(identifier: Identifier): Boolean =
+  def contains(identifier: Identifier): Boolean =
     this.bindings.contains(identifier)
 
-  def resolve(identifier: Identifier): Option[Environment] =
-    if exists(identifier) then Some(this)
-    else this.parent.flatMap(_.resolve(identifier))
+  def locate(identifier: Identifier): Option[Environment] =
+    if contains(identifier) then
+      Some(this)
+    else
+      this.parent.flatMap(_.locate(identifier))
 
   def set(identifier: Identifier, value: Any): Unit =
     this.bindings.update(identifier, value)
 
   def get(identifier: Identifier): Option[Any] =
-    resolve(identifier).flatMap(_.bindings.get(identifier))
+    locate(identifier).flatMap(_.bindings.get(identifier))
 
 object Environment:
   def empty: Environment = Environment()

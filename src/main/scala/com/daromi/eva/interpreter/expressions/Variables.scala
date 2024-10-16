@@ -10,7 +10,7 @@ final case class VariableDeclaration[T](
 ) extends Expression[T]:
 
   override def evaluate(environment: Environment): T =
-    if environment.exists(this.identifier) then
+    if environment.contains(this.identifier) then
       throw new RuntimeException(s"'${this.identifier}' already defined in scope")
     else
       val value = this.expression.evaluate(environment)
@@ -25,7 +25,7 @@ final case class VariableAssignment[T](
 ) extends Expression[T]:
 
   override def evaluate(environment: Environment): T =
-    environment.resolve(this.identifier) match
+    environment.locate(this.identifier) match
       case Some(scope) =>
         val value = this.expression.evaluate(environment)
         scope.set(this.identifier, value)
