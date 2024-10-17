@@ -4,24 +4,25 @@ import com.daromi.eva.interpreter.expressions.Identifier
 
 import scala.collection.mutable
 
+type Value = Any
+
 final class Environment private (
-    private val bindings: mutable.Map[Identifier, Any] = mutable.Map.empty,
+    private val bindings: mutable.Map[Identifier, Value] = mutable.Map.empty,
     private val parent: Option[Environment] = None
 ):
-  def contains(identifier: Identifier): Boolean =
-    this.bindings.contains(identifier)
+  def get(identifier: Identifier): Option[Value] = locate(identifier).flatMap { _.bindings.get(identifier) }
+
+  def put(identifier: Identifier, value: Value): Unit = this.bindings.put(identifier, value)
+
+  def put(binding: (Identifier, Value)): Unit = put(binding._1, binding._2)
+
+  def contains(identifier: Identifier): Boolean = this.bindings.contains(identifier)
 
   def locate(identifier: Identifier): Option[Environment] =
     if contains(identifier) then
       Some(this)
     else
-      this.parent.flatMap(_.locate(identifier))
-
-  def set(identifier: Identifier, value: Any): Unit =
-    this.bindings.update(identifier, value)
-
-  def get(identifier: Identifier): Option[Any] =
-    locate(identifier).flatMap(_.bindings.get(identifier))
+      this.parent.flatMap { _.locate(identifier) }
 
 object Environment:
   def empty: Environment = Environment()
