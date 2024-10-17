@@ -7,9 +7,9 @@ final case class Int32Add(
     rhs: Expression[Int]
 ) extends Expression[Int]:
 
-  override def evaluate(environment: Environment): Int =
-    val left  = this.lhs.evaluate(environment)
-    val right = this.rhs.evaluate(environment)
+  override def apply(environment: Environment): Int =
+    val left  = this.lhs.apply(environment)
+    val right = this.rhs.apply(environment)
 
     left + right
 
@@ -20,9 +20,9 @@ final case class Int32Subtract(
     rhs: Expression[Int]
 ) extends Expression[Int]:
 
-  override def evaluate(environment: Environment): Int =
-    val left  = this.lhs.evaluate(environment)
-    val right = this.rhs.evaluate(environment)
+  override def apply(environment: Environment): Int =
+    val left  = this.lhs.apply(environment)
+    val right = this.rhs.apply(environment)
 
     left - right
 
@@ -33,9 +33,9 @@ final case class Int32Multiply(
     rhs: Expression[Int]
 ) extends Expression[Int]:
 
-  override def evaluate(environment: Environment): Int =
-    val left  = this.lhs.evaluate(environment)
-    val right = this.rhs.evaluate(environment)
+  override def apply(environment: Environment): Int =
+    val left  = this.lhs.apply(environment)
+    val right = this.rhs.apply(environment)
 
     left * right
 
@@ -46,9 +46,9 @@ final case class Int32Divide(
     rhs: Expression[Int]
 ) extends Expression[Int]:
 
-  override def evaluate(environment: Environment): Int =
-    val left  = this.lhs.evaluate(environment)
-    val right = this.rhs.evaluate(environment)
+  override def apply(environment: Environment): Int =
+    val left  = this.lhs.apply(environment)
+    val right = this.rhs.apply(environment)
 
     left / right
 

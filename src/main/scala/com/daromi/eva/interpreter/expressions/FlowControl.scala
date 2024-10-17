@@ -8,13 +8,13 @@ final case class If[T](
     alternative: Expression[T]
 ) extends Expression[T]:
 
-  override def evaluate(environment: Environment): T =
-    val result = this.predicate.evaluate(environment)
+  override def apply(environment: Environment): T =
+    val result = this.predicate.apply(environment)
 
     if result then
-      this.consequent.evaluate(environment)
+      this.consequent.apply(environment)
     else
-      this.alternative.evaluate(environment)
+      this.alternative.apply(environment)
 
   override def toString: String = s"(if ${this.predicate} ${this.consequent} ${this.alternative})"
 
@@ -23,7 +23,7 @@ final case class While(
     body: Block[Unit]
 ) extends Expression[Unit]:
 
-  override def evaluate(environment: Environment): Unit =
-    while this.condition.evaluate(environment) do this.body.evaluate(environment)
+  override def apply(environment: Environment): Unit =
+    while this.condition.apply(environment) do this.body.apply(environment)
 
   override def toString: String = s"(while ${this.condition} ${this.body})"
