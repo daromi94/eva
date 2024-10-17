@@ -14,7 +14,7 @@ final case class VariableDeclaration[T](
       throw new RuntimeException(s"'${this.identifier}' already defined in scope")
     else
       val value = this.expression.apply(environment)
-      environment.put(this.identifier -> value)
+      environment.put(this.identifier, value)
       value
 
   override def toString: String = s"(var ${this.identifier} ${this.expression})"
@@ -39,7 +39,7 @@ final case class VariableAssignment[T](
     environment.locate(this.identifier) match
       case Some(scope) =>
         val value = this.expression.apply(environment)
-        scope.put(this.identifier -> value)
+        scope.put(this.identifier, value)
         value
 
       case None => throw new RuntimeException(s"'${this.identifier}' not defined in scope chain")

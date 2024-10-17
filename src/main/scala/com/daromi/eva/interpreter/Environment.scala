@@ -14,8 +14,6 @@ final class Environment private (
 
   def put(identifier: Identifier, value: Value): Unit = this.bindings.put(identifier, value)
 
-  def put(binding: (Identifier, Value)): Unit = put(binding._1, binding._2)
-
   def contains(identifier: Identifier): Boolean = this.bindings.contains(identifier)
 
   def locate(identifier: Identifier): Option[Environment] =
