@@ -2,9 +2,7 @@ package com.daromi.eva.interpreter.expressions
 
 import com.daromi.eva.interpreter.Environment
 
-final case class Block[T](
-    expressions: Seq[Expression[Any]]
-) extends Expression[T]:
+final case class Block[T](expressions: Seq[Expression[Any]]) extends Expression[T]:
 
   override def apply(environment: Environment): T =
     if this.expressions.isEmpty then
