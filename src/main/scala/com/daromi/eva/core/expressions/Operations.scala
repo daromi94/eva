@@ -1,6 +1,6 @@
-package com.daromi.eva.interpreter.expressions
+package com.daromi.eva.core.expressions
 
-import com.daromi.eva.interpreter.Environment
+import com.daromi.eva.core.Environment
 
 final case class Int32Add(
     lhs: Expression[Int],

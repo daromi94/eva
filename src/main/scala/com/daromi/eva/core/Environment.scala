@@ -1,6 +1,6 @@
-package com.daromi.eva.interpreter
+package com.daromi.eva.core
 
-import com.daromi.eva.interpreter.expressions.Identifier
+import com.daromi.eva.core.expressions.Identifier
 
 import scala.collection.mutable
 
