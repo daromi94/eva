@@ -1,5 +1,7 @@
 package com.daromi.eva.core.lexer
 
+private type Lexeme = String
+
 object Scanner:
   private type Buffer = Array[Char]
   private type Cursor = Int
