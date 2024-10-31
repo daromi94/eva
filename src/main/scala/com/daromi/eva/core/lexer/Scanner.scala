@@ -2,6 +2,8 @@ package com.daromi.eva.core.lexer
 
 import com.daromi.eva.core.lexer.RawSymbols.*
 
+import scala.collection.mutable.ArrayBuffer
+
 private type Lexeme = String
 private type Buffer = Array[Char]
 private type Cursor = Int
@@ -11,13 +13,12 @@ final private class Scanner private (
     private var cursor: Cursor = 0
 ):
   def scan(): Seq[Lexeme] =
-    var lexemes = List.empty[Lexeme]
+    val lexemes = ArrayBuffer.empty[Lexeme]
 
     while cursor < buffer.length do
-      val lexeme = advance()
-      lexeme.foreach { lexeme => lexemes = lexeme :: lexemes }
+      advance().foreach { lexemes += _ }
 
-    lexemes.reverse
+    lexemes.toSeq
 
   private def current: Char = buffer(cursor)
 
