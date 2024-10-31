@@ -4,12 +4,12 @@ import com.daromi.eva.core.lexer.RawSymbols.*
 
 import scala.collection.mutable.ArrayBuffer
 
-private type Lexeme = String
-private type Buffer = Array[Char]
-private type Cursor = Int
+private type Lexeme     = String
+private type ScanBuffer = Array[Char]
+private type Cursor     = Int
 
 final private class Scanner private (
-    private val buffer: Buffer,
+    private val buffer: ScanBuffer,
     private var cursor: Cursor = 0
 ):
   def scan(): Seq[Lexeme] =
