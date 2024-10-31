@@ -23,6 +23,7 @@ final class Environment private (
       this.parent.flatMap { _.locate(identifier) }
 
 object Environment:
+
   def empty: Environment = Environment()
 
   def childOf(parent: Environment): Environment = Environment(parent = Some(parent))
