@@ -12,15 +12,15 @@ final class Environment private (
 ):
   def get(identifier: Identifier): Option[Value] = locate(identifier).flatMap { _.bindings.get(identifier) }
 
-  def put(identifier: Identifier, value: Value): Unit = this.bindings.put(identifier, value)
+  def put(identifier: Identifier, value: Value): Unit = bindings.put(identifier, value)
 
-  def contains(identifier: Identifier): Boolean = this.bindings.contains(identifier)
+  def contains(identifier: Identifier): Boolean = bindings.contains(identifier)
 
   def locate(identifier: Identifier): Option[Environment] =
     if contains(identifier) then
       Some(this)
     else
-      this.parent.flatMap { _.locate(identifier) }
+      parent.flatMap { _.locate(identifier) }
 
 object Environment:
 

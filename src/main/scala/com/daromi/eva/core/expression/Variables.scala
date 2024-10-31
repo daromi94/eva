@@ -10,25 +10,25 @@ final case class VariableDeclaration[T](
 ) extends Expression[T]:
 
   override def apply(environment: Environment): T =
-    if environment.contains(this.identifier) then
-      throw new RuntimeException(s"'${this.identifier}' already defined in scope")
+    if environment.contains(identifier) then
+      throw new RuntimeException(s"'$identifier' already defined in scope")
     else
-      val value = this.expression.apply(environment)
-      environment.put(this.identifier, value)
+      val value = expression.apply(environment)
+      environment.put(identifier, value)
       value
 
-  override def toString: String = s"(var ${this.identifier} ${this.expression})"
+  override def toString: String = s"(var $identifier $expression)"
 
 final case class VariableLookup[T](
     identifier: Identifier
 ) extends Expression[T]:
 
   override def apply(environment: Environment): T =
-    environment.get(this.identifier) match
+    environment.get(identifier) match
       case Some(value) => value.asInstanceOf[T]
-      case None        => throw new RuntimeException(s"'${this.identifier}' not defined in scope chain")
+      case None        => throw new RuntimeException(s"'$identifier' not defined in scope chain")
 
-  override def toString: String = this.identifier
+  override def toString: String = identifier
 
 final case class VariableAssignment[T](
     identifier: Identifier,
@@ -36,12 +36,12 @@ final case class VariableAssignment[T](
 ) extends Expression[T]:
 
   override def apply(environment: Environment): T =
-    environment.locate(this.identifier) match
+    environment.locate(identifier) match
       case Some(scope) =>
-        val value = this.expression.apply(environment)
-        scope.put(this.identifier, value)
+        val value = expression.apply(environment)
+        scope.put(identifier, value)
         value
 
-      case None => throw new RuntimeException(s"'${this.identifier}' not defined in scope chain")
+      case None => throw new RuntimeException(s"'$identifier' not defined in scope chain")
 
-  override def toString: String = s"(set ${this.identifier} ${this.expression})"
+  override def toString: String = s"(set $identifier $expression)"

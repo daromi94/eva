@@ -9,14 +9,14 @@ final case class If[T](
 ) extends Expression[T]:
 
   override def apply(environment: Environment): T =
-    val result = this.predicate.apply(environment)
+    val result = predicate.apply(environment)
 
     if result then
-      this.consequent.apply(environment)
+      consequent.apply(environment)
     else
-      this.alternative.apply(environment)
+      alternative.apply(environment)
 
-  override def toString: String = s"(if ${this.predicate} ${this.consequent} ${this.alternative})"
+  override def toString: String = s"(if $predicate $consequent $alternative)"
 
 final case class While(
     condition: Expression[Boolean],
@@ -24,6 +24,6 @@ final case class While(
 ) extends Expression[Unit]:
 
   override def apply(environment: Environment): Unit =
-    while this.condition.apply(environment) do this.body.apply(environment)
+    while condition.apply(environment) do body.apply(environment)
 
-  override def toString: String = s"(while ${this.condition} ${this.body})"
+  override def toString: String = s"(while $condition $body)"

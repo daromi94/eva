@@ -8,12 +8,12 @@ final case class Int32Add(
 ) extends Expression[Int]:
 
   override def apply(environment: Environment): Int =
-    val left  = this.lhs.apply(environment)
-    val right = this.rhs.apply(environment)
+    val left  = lhs.apply(environment)
+    val right = rhs.apply(environment)
 
     left + right
 
-  override def toString: String = s"(+ ${this.lhs} ${this.rhs})"
+  override def toString: String = s"(+ $lhs $rhs)"
 
 final case class Int32Subtract(
     lhs: Expression[Int],
@@ -21,12 +21,12 @@ final case class Int32Subtract(
 ) extends Expression[Int]:
 
   override def apply(environment: Environment): Int =
-    val left  = this.lhs.apply(environment)
-    val right = this.rhs.apply(environment)
+    val left  = lhs.apply(environment)
+    val right = rhs.apply(environment)
 
     left - right
 
-  override def toString: String = s"(- ${this.lhs} ${this.rhs})"
+  override def toString: String = s"(- $lhs $rhs)"
 
 final case class Int32Multiply(
     lhs: Expression[Int],
@@ -34,12 +34,12 @@ final case class Int32Multiply(
 ) extends Expression[Int]:
 
   override def apply(environment: Environment): Int =
-    val left  = this.lhs.apply(environment)
-    val right = this.rhs.apply(environment)
+    val left  = lhs.apply(environment)
+    val right = rhs.apply(environment)
 
     left * right
 
-  override def toString: String = s"(* ${this.lhs} ${this.rhs})"
+  override def toString: String = s"(* $lhs $rhs)"
 
 final case class Int32Divide(
     lhs: Expression[Int],
@@ -47,9 +47,9 @@ final case class Int32Divide(
 ) extends Expression[Int]:
 
   override def apply(environment: Environment): Int =
-    val left  = this.lhs.apply(environment)
-    val right = this.rhs.apply(environment)
+    val left  = lhs.apply(environment)
+    val right = rhs.apply(environment)
 
     left / right
 
-  override def toString: String = s"(/ ${this.lhs} ${this.rhs})"
+  override def toString: String = s"(/ $lhs $rhs)"
