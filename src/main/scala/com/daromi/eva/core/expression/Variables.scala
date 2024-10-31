@@ -1,6 +1,6 @@
-package com.daromi.eva.core.expressions
+package com.daromi.eva.core.expression
 
-import com.daromi.eva.core.Environment
+import com.daromi.eva.core.scope.Environment
 
 type Identifier = String
 

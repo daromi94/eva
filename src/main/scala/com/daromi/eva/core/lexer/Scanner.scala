@@ -1,7 +1,5 @@
 package com.daromi.eva.core.lexer
 
-type Lexeme = String
-
 object Scanner:
   private type Buffer = Array[Char]
   private type Cursor = Int
@@ -13,8 +11,6 @@ object Scanner:
   private val Escape           = '\\'
   private val DecimalPoint     = '.'
   private val Underscore       = '_'
-
-  final private case class LexemeResult(lexeme: Option[Lexeme], cursor: Cursor)
 
   def scan(source: Source): Seq[Lexeme] =
     if source.isBlank then
@@ -84,3 +80,5 @@ object Scanner:
       next - 1
 
   private def ignore(cursor: Cursor): LexemeResult = LexemeResult(None, cursor + 1)
+
+  final private case class LexemeResult(lexeme: Option[Lexeme], cursor: Cursor)
