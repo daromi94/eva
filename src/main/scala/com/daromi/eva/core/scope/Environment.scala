@@ -1,10 +1,8 @@
 package com.daromi.eva.core.scope
 
-import com.daromi.eva.core.expression.Identifier
+import com.daromi.eva.core.expression.{ Identifier, Value }
 
 import scala.collection.mutable
-
-type Value = Any
 
 final class Environment private (
     private val bindings: mutable.Map[Identifier, Value] = mutable.Map.empty,
