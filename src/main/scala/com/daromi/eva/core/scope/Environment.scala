@@ -8,13 +8,24 @@ final class Environment private (
     private val bindings: mutable.Map[Identifier, Value] = mutable.Map.empty,
     private val parent: Option[Environment] = None
 ):
-  def get(identifier: Identifier): Option[Value] = locate(identifier).flatMap { _.bindings.get(identifier) }
+  def get(identifier: Identifier): Option[Value] =
+    require(!identifier.isBlank)
 
-  def put(identifier: Identifier, value: Value): Unit = bindings.put(identifier, value)
+    locate(identifier).flatMap { _.bindings.get(identifier) }
 
-  def contains(identifier: Identifier): Boolean = bindings.contains(identifier)
+  def put(identifier: Identifier, value: Value): Unit =
+    require(!identifier.isBlank)
+
+    bindings.put(identifier, value)
+
+  def contains(identifier: Identifier): Boolean =
+    require(!identifier.isBlank)
+
+    bindings.contains(identifier)
 
   def locate(identifier: Identifier): Option[Environment] =
+    require(!identifier.isBlank)
+
     if contains(identifier) then
       Some(this)
     else
