@@ -23,6 +23,8 @@ final private class Scanner private (
   private def current: Char = buffer(cursor)
 
   private def advance(): Option[Lexeme] =
+    assume(0 <= cursor && cursor < buffer.length - 1)
+
     current match
       case OpenParenthesis | CloseParenthesis => munchOne()
       case Plus | Minus | Multiply | Divide   => munchOne()
@@ -32,11 +34,15 @@ final private class Scanner private (
       case c if c.isWhitespace                => ignore()
 
   private def munchOne(): Option[Lexeme] =
+    assume(0 <= cursor && cursor < buffer.length - 1)
+
     val lexeme = current.toString
     cursor += 1
     Some(lexeme)
 
   private def munchString(): Option[Lexeme] =
+    assume(0 <= cursor && cursor < buffer.length - 1)
+
     val start = cursor
     var i     = start + 1
     var found = false
@@ -54,15 +60,16 @@ final private class Scanner private (
       None
 
   private def ignore(): Option[Lexeme] =
+    assume(0 <= cursor && cursor < buffer.length - 1)
+
     cursor += 1
     None
 
 private object Scanner:
 
   def scan(source: Source): Seq[Lexeme] =
-    if source.isBlank then
-      Seq.empty
-    else
-      val buffer  = source.toCharArray
-      val scanner = Scanner(buffer)
-      scanner.scan()
+    require(!source.isBlank)
+
+    val buffer  = source.toCharArray
+    val scanner = Scanner(buffer)
+    scanner.scan()
