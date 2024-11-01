@@ -1,0 +1,14 @@
+version: "3"
+
+tasks:
+  default:
+    cmd: task -a
+
+  clean:
+    cmd: sbt clean
+
+  build:
+    cmd: sbt compile
+
+  test:
+    cmd: sbt test
