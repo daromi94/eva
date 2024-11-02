@@ -189,3 +189,10 @@ final class ScannerSpec extends AnyFlatSpec:
 
     // Expecting
     assertThrows[RuntimeException] { Scanner.scan(source) }
+
+  it should "fail on unclosed escaped double quote" in:
+    // Given
+    val source = "\"foo\\\""
+
+    // Expecting
+    assertThrows[RuntimeException] { Scanner.scan(source) }
