@@ -66,7 +66,7 @@ final private class Scanner private (
       cursor = i
       lexeme
     else
-      throw RuntimeException(s"unterminated string at cursor $cursor")
+      throw RuntimeException(s"unclosed string at cursor $cursor")
 
   private def munchNumber(): Lexeme =
     assume(0 <= cursor && cursor < buffer.length, s"cursor $cursor out of bounds")
