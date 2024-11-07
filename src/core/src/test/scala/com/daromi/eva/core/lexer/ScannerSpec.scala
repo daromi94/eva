@@ -6,21 +6,21 @@ import scala.language.postfixOps
 
 final class ScannerSpec extends AnyFlatSpec:
 
-  "A scanner" should "fail on empty source" in:
+  "A scanner" should "fail on empty input" in:
     // Given
     val source = ""
 
     // Expecting
     assertThrows[RuntimeException] { Scanner.scan(source) }
 
-  it should "fail on single whitespace source" in:
+  it should "fail on single whitespace" in:
     // Given
     val source = " "
 
     // Expecting
     assertThrows[RuntimeException] { Scanner.scan(source) }
 
-  it should "fail on whitespace-only source" in:
+  it should "fail on only whitespace characters" in:
     // Given
     val source = " \t\n\f\r"
 
@@ -135,20 +135,6 @@ final class ScannerSpec extends AnyFlatSpec:
 
     assert(lexemes == expected)
 
-  it should "fail on unclosed double quote" in:
-    // Given
-    val source = "\""
-
-    // Expecting
-    assertThrows[RuntimeException] { Scanner.scan(source) }
-
-  it should "fail on unclosed escaped double quote" in:
-    // Given
-    val source = "\"foo\\\""
-
-    // Expecting
-    assertThrows[RuntimeException] { Scanner.scan(source) }
-
   it should "scan a string" in:
     // Given
     val source = "\"foo\""
@@ -173,7 +159,7 @@ final class ScannerSpec extends AnyFlatSpec:
 
     assert(lexemes == expected)
 
-  it should "scan parentheses with a string inside" in:
+  it should "scan a string enclosed in parentheses" in:
     // Given
     val source = "(\"foo\")"
 
@@ -185,7 +171,7 @@ final class ScannerSpec extends AnyFlatSpec:
 
     assert(lexemes == expected)
 
-  it should "scan strings with an operator between them" in:
+  it should "scan strings separated by an operator" in:
     // Given
     val source = "\"foo\" + \"bar\""
 
@@ -196,3 +182,235 @@ final class ScannerSpec extends AnyFlatSpec:
     val expected = Seq("\"foo\"", "+", "\"bar\"")
 
     assert(lexemes == expected)
+
+  it should "fail on unclosed double quote" in:
+    // Given
+    val source = "\""
+
+    // Expecting
+    assertThrows[RuntimeException] { Scanner.scan(source) }
+
+  it should "fail on unclosed escaped double quote" in:
+    // Given
+    val source = "\"foo\\\""
+
+    // Expecting
+    assertThrows[RuntimeException] { Scanner.scan(source) }
+
+  it should "scan a natural number" in:
+    // Given
+    val source = "42"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("42")
+
+    assert(lexemes == expected)
+
+  it should "scan multiple natural numbers" in:
+    // Given
+    val source = "42 73 144"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("42", "73", "144")
+
+    assert(lexemes == expected)
+
+  it should "scan a natural number enclosed in parentheses" in:
+    // Given
+    val source = "(42)"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("(", "42", ")")
+
+    assert(lexemes == expected)
+
+  it should "scan natural numbers separated by an operator" in:
+    // Given
+    val source = "42 + 73"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("42", "+", "73")
+
+    assert(lexemes == expected)
+
+  it should "scan a negative number" in:
+    // Given
+    val source = "-1"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("-1")
+
+    assert(lexemes == expected)
+
+  it should "scan multiple negative numbers" in:
+    // Given
+    val source = "-1 -17 -1001"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("-1", "-17", "-1001")
+
+    assert(lexemes == expected)
+
+  it should "scan a negative number enclosed in parentheses" in:
+    // Given
+    val source = "(-1)"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("(", "-1", ")")
+
+    assert(lexemes == expected)
+
+  it should "scan negative numbers separated by an operator" in:
+    // Given
+    val source = "-1 + -17"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("-1", "+", "-17")
+
+    assert(lexemes == expected)
+
+  it should "scan a decimal number" in:
+    // Given
+    val source = "2.7182"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("2.7182")
+
+    assert(lexemes == expected)
+
+  it should "scan multiple decimal numbers" in:
+    // Given
+    val source = "2.7182 3.1415 1.6180"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("2.7182", "3.1415", "1.6180")
+
+    assert(lexemes == expected)
+
+  it should "scan a decimal number enclosed in parentheses" in:
+    // Given
+    val source = "(2.7182)"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("(", "2.7182", ")")
+
+    assert(lexemes == expected)
+
+  it should "scan decimal numbers separated by an operator" in:
+    // Given
+    val source = "2.7182 + 3.1415"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("2.7182", "+", "3.1415")
+
+    assert(lexemes == expected)
+
+  it should "scan a number with underscores" in:
+    // Given
+    val source = "1_000_000_000"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("1_000_000_000")
+
+    assert(lexemes == expected)
+
+  it should "scan multiple numbers with underscores" in:
+    // Given
+    val source = "1_000_000_000 4_096 8_388_608"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("1_000_000_000", "4_096", "8_388_608")
+
+    assert(lexemes == expected)
+
+  it should "scan a number with underscores enclosed in parentheses" in:
+    // Given
+    val source = "(1_000_000_000)"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("(", "1_000_000_000", ")")
+
+    assert(lexemes == expected)
+
+  it should "scan numbers with underscores separated by an operator" in:
+    // Given
+    val source = "1_000_000_000 + 4_096"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("1_000_000_000", "+", "4_096")
+
+    assert(lexemes == expected)
+
+  it should "scan a complex arithmetic expression" in:
+    // Given
+    val source = "(42 + (-1 * 2.7182) / 1_000_000_000) - 0"
+
+    // When
+    val lexemes = Scanner.scan(source)
+
+    // Then
+    val expected = Seq("(", "42", "+", "(", "-1", "*", "2.7182", ")", "/", "1_000_000_000", ")", "-", "0")
+
+    assert(lexemes == expected)
+
+  it should "fail on multiple decimal points" in:
+    // Given
+    val source = "2..7182"
+
+    // Expecting
+    assertThrows[RuntimeException] { Scanner.scan(source) }
+
+  it should "fail on trailing underscore" in:
+    // Given
+    val source = "1_000_000_000_"
+
+    // Expecting
+    assertThrows[RuntimeException] { Scanner.scan(source) }
