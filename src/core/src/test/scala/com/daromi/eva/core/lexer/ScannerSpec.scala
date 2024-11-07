@@ -135,6 +135,20 @@ final class ScannerSpec extends AnyFlatSpec:
 
     assert(lexemes == expected)
 
+  it should "fail on unclosed double quote" in:
+    // Given
+    val source = "\""
+
+    // Expecting
+    assertThrows[RuntimeException] { Scanner.scan(source) }
+
+  it should "fail on unclosed escaped double quote" in:
+    // Given
+    val source = "\"foo\\\""
+
+    // Expecting
+    assertThrows[RuntimeException] { Scanner.scan(source) }
+
   it should "scan a string" in:
     // Given
     val source = "\"foo\""
@@ -182,17 +196,3 @@ final class ScannerSpec extends AnyFlatSpec:
     val expected = Seq("\"foo\"", "+", "\"bar\"")
 
     assert(lexemes == expected)
-
-  it should "fail on unclosed double quote" in:
-    // Given
-    val source = "\""
-
-    // Expecting
-    assertThrows[RuntimeException] { Scanner.scan(source) }
-
-  it should "fail on unclosed escaped double quote" in:
-    // Given
-    val source = "\"foo\\\""
-
-    // Expecting
-    assertThrows[RuntimeException] { Scanner.scan(source) }
